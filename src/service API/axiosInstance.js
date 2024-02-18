@@ -1,0 +1,38 @@
+import axios from "axios";
+
+// //BELİRLİ BIR CUSTOM CONFIG AYAR 
+// const escapedToken = JSON.parse(localStorage.getItem("persist:root"))?.token;
+// const token = escapedToken && JSON.parse(escapedToken);
+
+// const instance = axios.create({
+//  AXIOS'U TEKRAR TEKRAR YAZMAK VE CONFIG AYARLARINI YAPMAK YERINE AXIOS INSTANCE KULLANABILIRIZ.
+//     baseURL: 'https://some-domain.com/api/',
+//     timeout: 1000,
+//     headers: {Authorization: `Token ${token}`}
+//   });
+// //TOKEN SUREKLI DEGISKEN OLDUGUNDAN BUNU LOCALDEN OKUYUP BURAYA AKTARMAMIZ GEREKIR
+
+//   //HER DEFASINDA TOKEN VEYA "ŞU AYAR, BU AYAR" YAZMANIZA GEREK YOK.
+
+export const axiosWithoutToken = axios.create({
+    baseURL: 'https://659a7537652b843dea539125.mockapi.io/api/v1',
+    //TOKEN GEREKTIREN ISTEKLER ICIN BIR BASKA INSTANCE OLUSTURUR.
+     
+    // headers: {'X-Custom-Header': 'foobar'}
+  });
+//INSTANCE, TOKEN'IN ILK DEGERINI OKUYARAK ISTEKTE BULUNUR. DOLAYISIYLA BAZEN LOCAL.STORAGE'DAN TOKEN ALINMADAN ILK DEGERI (NULL) ILE ISTEK YAPILMIS OLABILIR. BUNUN COZUMU ICIN AXIOS.INTERCEPTOR KULLANILABILIR.
+//INTERCEPTOR BELIRTILEN HER AXIOS INSTANCE CALISMADAN ONCE CALISAN BIR METOTTUR. DOLAYISIYLA ONCE YENI TOKEN OKUNMASINI SAGLAR.
+
+//-------------------------------------------------------------------------
+  //AXIOS.INTERCEPTORS ŞU DEMEK: HER OLUSTURULAN INSTANCE'DAN ONCE BASKA BIR ISLEM YAPMAK ISTIYORUM (MESELA TOKEN OKUMAK GIBI). VEYA RESPONSE GELDIKTEN HEMEN SONRA BIR SEY YAPMAK ISTIYORUM. BUNUN ICIN INTERCEPTOR KULLANMAK GEREKIR.
+
+  // ADD A REQUEST INTERCEPTOR
+// axios.interceptors.request.use(function (config) {
+//   // DO SOMETHING BEFORE REQUEST IS SENT
+//   if(!config.headers["Authorization"]) { 
+//     config.headers["Authorization"] =`Token ${token}`;
+//     // CONFIG HEADER ICINDE BIRSEY YOKSA EKLE
+//     //ARTIK HER ISTEKTEN ONCE BIR KERE DAHA TOKEN OKUMAYI SAGLADIGI ICIN GUNCEL TOKEN ALMAYI GARANTI EDIYOR DIYEBILIRIZ.
+//   }
+//   return config;
+// },  ) 

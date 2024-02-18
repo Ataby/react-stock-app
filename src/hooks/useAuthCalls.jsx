@@ -16,6 +16,7 @@ const useAuthCalls = () => {
   const navigate = useNavigate();
 
   const BASE_URL = "https://10001.fullstack.clarusway.com/";
+  //BIR HOOK, ANCAK REACT COMPONENTINDE KULLANABILIRIZ VEYA CUSTOM HOOK ICINDE KULLANABILIRIZ. BASKA YERDE KULLANILAMAZ
 
   const login = async (userInfo) => {
     dispatch(fetchStart());
@@ -33,7 +34,7 @@ const useAuthCalls = () => {
       toastErrorNotify("Login can not be performed");
     }
   };
-
+  
   const logout = async () => {
     dispatch(fetchStart());
     try {

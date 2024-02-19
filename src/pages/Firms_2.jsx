@@ -8,7 +8,6 @@ import {useDispatch, useSelector} from "react-redux";
  import { fetchFail ,fetchStart,getSuccess} from '../features/stockSlice';
 import useStockCalls from '../hooks/useStockCalls';
 
-
 const Firms = () => {
   //FIRMALARI API'DEN CEKMEK ICIN USE.EFFECT ICINDE ISTEK YAPALIM
   const {getFirms,dataList,brand,setbrand}= useStockCalls();

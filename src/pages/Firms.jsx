@@ -6,42 +6,31 @@ import  React from 'react';
  import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import ShareIcon from '@mui/icons-material/Share';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
- import FavoriteIcon from '@mui/icons-material/Favorite';
+ import EditIcon from '@mui/icons-material/Edit';
  import Collapse from '@mui/material/Collapse';
  import IconButton, { IconButtonProps } from '@mui/material/IconButton';
  import { styled } from '@mui/material/styles';
- import CardHeader from '@mui/material/CardHeader';
- import Avatar from '@mui/material/Avatar';
- import { red } from '@mui/material/colors';
- import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-
-
- const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
- 
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import  TextField  from '@mui/material/TextField';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import {modalStyle} from "../styles/globalStyle"
+  
 
 
 const Firms = () => {
-  const {getFirms,dataList,brand,setbrand}= useStockCalls();
+  const {getFirms,dataList,brand,setbrand,handleDelete}= useStockCalls();
+  const [open, setOpen] = useState(false);
+  const newFirm = () => setOpen(!open);
+ 
   
-    const [expanded, setExpanded] = useState(false);
-  
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
-
+  const handleSubmit=()=> {
+    setOpen(!open)
+  }
     const [buttonColor, setButtonColor] = useState('secondary');
     const handleColor =()=> {
       if (buttonColor === 'secondary') {
@@ -56,38 +45,46 @@ const Firms = () => {
     {dataList?.map((item,index)=> {
       const {sira, sirket_adi,ulke,telefon_numarasi,adres,araba_modelleri}=item;
       return (
-        <Card sx={{  maxWidth:380,minWidth:380 ,boxShadow:"0px 0px 5px"}}>
-        
+        <Card sx={{ padding:"1rem", maxWidth:380,minWidth:380 ,boxShadow:"0px 0px 5px", }}>
+        <Box sx={{marginBottom:"",border:"2px solid red" }} >
+         
+            <Typography gutterBottom variant="h5" component="div" color="text.primary">
+            {sirket_adi}
+            </Typography>
+            <Typography  > <span style={{textDecoration:"underline"}}>ADDRES:</span>  {item.adres}</Typography>
+          
+            <CardActions sx={{justifyContent:"right",alignItems:"end"}}>
+              <button onClick={newFirm}><EditIcon/></button>
+                {open && <Modal
+                    open={open}
+                    onClose={open}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={modalStyle}>                      
+                    <TextField sx={{mt:2,width:"100%"}} id="outlined-basic" label="Company" variant="outlined" required />
+                    <TextField required sx={{mt:2,width:"100%"}} id="outlined-basic" label="Address" variant="outlined" />
+                    <TextField sx={{mt:2,width:"100%"}} id="outlined-basic" label="Image URL" variant="outlined" />
+                    <div style={{border:"2px solid red",alignItems:"stretch"}}> 
+                      <button style={{cursor:"pointer",marginTop:".7rem",color:"white" ,backgroundColor:"blue",border:"2px solid blue",padding:" .5rem 1rem"}}  onClick={handleSubmit}>Submit </button>
+                      <button style={{cursor:"pointer",marginTop:".7rem",color:"white" ,backgroundColor:"red", padding:" .5rem "}} onClick={()=> setOpen(!open)}><CancelOutlinedIcon/> </button>
+                      </div>
+                    </Box>
+                  </Modal>}
+
+              <button onClick={()=>handleDelete(sira)}><DeleteOutlineIcon/></button> 
+                  
+            </CardActions>
+          </Box>
+
         <CardMedia
           component="img"
-          height="294"
+          height="%94"
           image={item.resim}
           alt="logo"
-          
+          sx={{objectFit:"contain",border:"2px solid red"}}
         />
-        <CardContent >
-          <Typography gutterBottom variant="h5" component="div" color="text.primary">
-          {sirket_adi}
-          </Typography>
-          <Typography>{item.adres}</Typography>
-        </CardContent>
-        <CardActions >
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography color="error">
-              {ulke}
-            </Typography>
-          </CardContent>
-        </Collapse>
+          
       </Card>
         )
       

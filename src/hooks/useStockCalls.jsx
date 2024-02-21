@@ -28,6 +28,15 @@ const useStockCalls = () => {
           console.log(error);
         }
     }
+    const handleDelete = async(id)=> {
+      alert("şu anda api'den veri silmeye izin verilmemektedir.")
+      // try {
+      //   await axios.delete(`${URL}/`+id)
+      // } catch (error) {
+      //   console.log(error)
+      // }
+
+    }
       
 
     useEffect(() => {
@@ -53,7 +62,16 @@ const useStockCalls = () => {
      
 //CUSTOM HOOK ICINDE NORMAL FONKSIYONLAR YAZILABILIR, HER TURLU HOOK KULLANILABILIR. FAKAT "RETURN" KISMINDA JSX DONDURMEYIZ. ONUN YERINE BURADAKI FONKSIYONLARI DONDURURUZ
 // aslında yazılan fonksıyonu dondurmek ıcın custom hook yazıyoruz.Cunku fonksıyonu tekrar tekrar yazmak ıstemıyoruz.
-  return {getFirms,dataList,brand,setbrand}
+  return {getFirms,dataList,brand,setbrand,handleDelete}
 }
 
-export default useStockCalls
+export default useStockCalls;
+
+export const deleteFirms =()=>{
+
+  try {
+    
+  } catch (error) {
+    
+  }
+}

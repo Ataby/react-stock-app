@@ -13,7 +13,7 @@ const useStockCalls = () => {
     const URL = `https://659a7537652b843dea539125.mockapi.io/api/v1/task`;
     const dispatch = useDispatch();
     const [dataList, setdataList] = useState(null);
-    const [brand, setbrand] = useState(null);
+   
     
     const getFirms=async()=> {
         // const url= "firms";
@@ -28,22 +28,43 @@ const useStockCalls = () => {
           console.log(error);
         }
     }
-    const handleDelete = async(id)=> {
-      alert("şu anda api'den veri silmeye izin verilmemektedir.")
-      // try {
-      //   await axios.delete(`${URL}/`+id)
-      // } catch (error) {
-      //   console.log(error)
-      // }
+    const postFirms=async(info)=> {
+        // const url= "firms";
+         
+        try {
+          await axios.post(`${URL}/`,info)
+          .then((data)=> setdataList(data));
+          getFirms();
+        } catch (error) {
+          console.log(error);
+        }
+    }
+    const deleteFirms = async(id)=> {
+      // alert("şu anda api'den veri silmeye izin verilmemektedir.")
+      try {
+        await axios.delete(`${URL}/${id}`)
+        .then((data)=> setdataList(data));
+        getFirms();
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    const putFirms = async(info)=> {
+      console.log(info.id)
+      try {
+        await axios.put(`${URL}/${info.id}`,info)
+        .then((data)=> setdataList(data));
+        getFirms();
+      } catch (error) {
+        console.log(error)
+      }
 
     }
       
 
     useEffect(() => {
         getFirms();
-        console.log(dataList); 
-        console.log(brand);
-         
+        console.log(dataList);          
       }, [ ]);
     // const getFirms=async()=> {
     //     const url= "firms";
@@ -62,16 +83,9 @@ const useStockCalls = () => {
      
 //CUSTOM HOOK ICINDE NORMAL FONKSIYONLAR YAZILABILIR, HER TURLU HOOK KULLANILABILIR. FAKAT "RETURN" KISMINDA JSX DONDURMEYIZ. ONUN YERINE BURADAKI FONKSIYONLARI DONDURURUZ
 // aslında yazılan fonksıyonu dondurmek ıcın custom hook yazıyoruz.Cunku fonksıyonu tekrar tekrar yazmak ıstemıyoruz.
-  return {getFirms,dataList,brand,setbrand,handleDelete}
+  return {getFirms,dataList, postFirms,deleteFirms,putFirms}
 }
 
 export default useStockCalls;
 
-export const deleteFirms =()=>{
-
-  try {
-    
-  } catch (error) {
-    
-  }
-}
+ 

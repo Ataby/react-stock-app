@@ -19,70 +19,46 @@ import Modal from '@mui/material/Modal';
 import  TextField  from '@mui/material/TextField';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import {modalStyle} from "../styles/globalStyle"
+import FirmModal from './FirmModal';
   
 
 
 const Firms = () => {
-  const {getFirms,dataList,brand,setbrand,handleDelete}= useStockCalls();
-  const [open, setOpen] = useState(false);
-  const newFirm = () => setOpen(!open);
- 
-  
-  const handleSubmit=()=> {
-    setOpen(!open)
-  }
-    const [buttonColor, setButtonColor] = useState('secondary');
-    const handleColor =()=> {
-      if (buttonColor === 'secondary') {
-        setButtonColor('error'); // Rengi kırmızıya ayarla
-      } else {
-        setButtonColor('secondary'); // Rengi griye ayarla
-      }
-    }
+  const {getFirms,dataList ,postFirms,deleteFirms,putFirms}= useStockCalls();
+  const [open, setOpen] = useState(false); 
+  const [info, setinfo] = useState({}); 
     
     return (
-      <div style={{display:"flex", flexWrap:"wrap",gap:"2rem"}}>
+      <div style={{display:"flex", flexWrap:"wrap",border:"2px solid white",boxSizing:"borderBox",margin:"0",padding:"1rem"}}>
+        <Box style={{width:"100vw"}} >
+        <Button variant='contained' color='secondary' onClick={()=>setOpen(!open)}> Add New Firm</Button>
+        </Box>
+        <FirmModal  postFirms={postFirms} open={open} setOpen={setOpen} info={info} setinfo={setinfo} putFirms={putFirms} />
     {dataList?.map((item,index)=> {
-      const {sira, sirket_adi,ulke,telefon_numarasi,adres,araba_modelleri}=item;
+      const {id, sirket_adi,ulke,telefon_numarasi,adres,araba_modelleri}=item;
       return (
-        <Card sx={{ padding:"1rem", maxWidth:380,minWidth:380 ,boxShadow:"0px 0px 5px", }}>
-        <Box sx={{marginBottom:"",border:"2px solid red" }} >
+        <Card sx={{ padding:"1rem",margin:".8rem", maxWidth:400,minWidth:400 ,boxShadow:"0px 0px 5px" }}>
+        <Box sx={{ }} >
          
-            <Typography gutterBottom variant="h5" component="div" color="text.primary">
+            <Typography variant="h5" component="div" color="text.primary">
             {sirket_adi}
             </Typography>
-            <Typography  > <span style={{textDecoration:"underline"}}>ADDRES:</span>  {item.adres}</Typography>
+            <Typography  > <span style={{textDecoration:"underline"}}>ADDRESS:</span>  {item.adres}</Typography>
           
-            <CardActions sx={{justifyContent:"right",alignItems:"end"}}>
-              <button onClick={newFirm}><EditIcon/></button>
-                {open && <Modal
-                    open={open}
-                    onClose={open}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={modalStyle}>                      
-                    <TextField sx={{mt:2,width:"100%"}} id="outlined-basic" label="Company" variant="outlined" required />
-                    <TextField required sx={{mt:2,width:"100%"}} id="outlined-basic" label="Address" variant="outlined" />
-                    <TextField sx={{mt:2,width:"100%"}} id="outlined-basic" label="Image URL" variant="outlined" />
-                    <div style={{border:"2px solid red",alignItems:"stretch"}}> 
-                      <button style={{cursor:"pointer",marginTop:".7rem",color:"white" ,backgroundColor:"blue",border:"2px solid blue",padding:" .5rem 1rem"}}  onClick={handleSubmit}>Submit </button>
-                      <button style={{cursor:"pointer",marginTop:".7rem",color:"white" ,backgroundColor:"red", padding:" .5rem "}} onClick={()=> setOpen(!open)}><CancelOutlinedIcon/> </button>
-                      </div>
-                    </Box>
-                  </Modal>}
-
-              <button onClick={()=>handleDelete(sira)}><DeleteOutlineIcon/></button> 
+            <CardActions sx={{justifyContent:"right"}}>
+              <button onClick={ ()=>{setOpen(!open);
+                                    setinfo(item) }} ><EditIcon/></button>
+              <button onClick={ ()=>deleteFirms(id) }><DeleteOutlineIcon/></button> 
                   
             </CardActions>
           </Box>
 
         <CardMedia
           component="img"
-          height="%94"
+          height="174vh"
           image={item.resim}
           alt="logo"
-          sx={{objectFit:"contain",border:"2px solid red"}}
+          sx={{objectFit:"contain"}}
         />
           
       </Card>

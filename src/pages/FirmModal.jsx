@@ -12,41 +12,57 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  wnameth: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '2px solid red',
   boxShadow: 24,
   p: 4,
+  display:"flex",
+  flexDirection:"column",
+  gap:"1rem"
 };
 
-export default function FirmModal({open,setOpen,info,setinfo}) {
+export default function FirmModal({open,setOpen,info,setinfo,postFirms,putFirms}) {
 
   const handleSubmit = function (e){
-    e.preventDefault()
+    e.preventDefault();
+    if(info.id){
+      console.log(info);
+      putFirms(info);
+      setOpen(!open);
+    }else {
+      postFirms(info);
+      setOpen(!open);
+
+    }
+
+    setinfo({})
   }
   
   const handleChange=(e)=>{
     const {name,value}=e.target;
     setinfo({...info, [name]:value })
-
+    //ONCE OBJEYI AC, SONRA HANGI KEY ISTENIYORSA ONU DEGISTIR.
   }
 
   return (
     <div>
-
       <Modal
         open={open}
-        onClose={()=>setOpen(!open)}
+        onClose={()=>{setinfo({}); setOpen(!open)}}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} component="form" onSubmit={handleSubmit}>
-          <TextField id="name" label="Firm Name" variant="filled"
-          onChange={handleChange} value={info?.name || ""} />
-          <TextField id="filled-basic" label="Phone" variant="filled" />
-          <TextField id="filled-basic" label="Address" variant="filled" />
-          <TextField id="filled-basic" label="Image URL" variant="filled" />
-          <Button type='submit' variant='contained' onClick={handleSubmit}>Submit New Firm</Button>
+          <TextField name="sirket_adi" type='text' placeholder="Firm Name" variant="outlined"
+          onChange={handleChange} value={info?.sirket_adi || ""} />
+          {/* <TextField id="phone" type="number" placeholder="Phone" variant="outlined" 
+          onChange={handleChange} value={info?.name || ""} /> */}
+          <TextField name="adres" type="text" placeholder="Address" variant="outlined" 
+          onChange={handleChange} value={info?.adres || ""}  />
+          <TextField name="resim" type='text' placeholder="Image URL" variant="outlined" 
+          onChange={handleChange} value={info?.resim || ""} />
+          <Button type='submit' variant='contained' size={"large"} onClick={handleSubmit} sx={{marginTop:".5rem"}}>Submit Firm</Button>
         </Box>
       </Modal>
     </div>

@@ -19,7 +19,7 @@ import Modal from '@mui/material/Modal';
 import  TextField  from '@mui/material/TextField';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import {modalStyle} from "../styles/globalStyle"
-import FirmModal from './FirmModal';
+import FirmModal from '../modals/FirmModal';
   
 
 
@@ -27,10 +27,14 @@ const Firms = () => {
   const {getFirms,dataList ,postFirms,deleteFirms,putFirms}= useStockCalls();
   const [open, setOpen] = useState(false); 
   const [info, setinfo] = useState({}); 
+
     
     return (
       <div style={{display:"flex", flexWrap:"wrap",border:"2px solid white",boxSizing:"borderBox",margin:"0",padding:"1rem"}}>
         <Box style={{width:"100vw"}} >
+        <Typography variant='h4' color="error" mb={4} >
+            Firms
+          </Typography>
         <Button variant='contained' color='secondary' onClick={()=>setOpen(!open)}> Add New Firm</Button>
         </Box>
         <FirmModal  postFirms={postFirms} open={open} setOpen={setOpen} info={info} setinfo={setinfo} putFirms={putFirms} />
@@ -43,7 +47,8 @@ const Firms = () => {
             <Typography variant="h5" component="div" color="text.primary">
             {sirket_adi}
             </Typography>
-            <Typography  > <span style={{textDecoration:"underline"}}>ADDRESS:</span>  {item.adres}</Typography>
+            <Typography  > <span style={{textDecoration:"underline"}}>ADDRESS:</span>  {adres}</Typography>
+            <Typography><span style={{textDecoration:"underline"}}> TELEPHONE:</span> {telefon_numarasi} </Typography>
           
             <CardActions sx={{justifyContent:"right"}}>
               <button onClick={ ()=>{setOpen(!open);
@@ -58,8 +63,7 @@ const Firms = () => {
           height="174vh"
           image={item.resim}
           alt="logo"
-          sx={{objectFit:"contain"}}
-        />
+          sx={{objectFit:"contain"}}/>
           
       </Card>
         )

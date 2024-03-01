@@ -16,36 +16,36 @@ import { useNavigate } from 'react-router-dom';
 
 
 const icons = [
-    {
-    icon:<DashboradIcon/>,
-    title:"Dashboard",
-    url:"/stock/"
-    },
-    {
-    icon:<ShoppingCartIcon/>,
-    title:"Purchase",
-    url:"/stock/purchases"
-    },
-    {
-    icon:<AttachMoneyIcon/>,
-    title:"Sales",
-    url:"/stock/sales"
-    },
-    {
+  {
     icon:<StoreIcon/>,
     title:"Firms",
     url:"/stock/firms"
-    },
-    {
+  },
+  {
     icon:<StarsIcon/>,
     title:"Brands",
     url:"/stock/brands"
-    },
-    {
+  },
+  {
     icon:<InventoryIcon/>,
     title:"Products",
     url:"/stock/products"
-    },
+  },
+  {
+    icon:<ShoppingCartIcon/>,
+    title:"Purchase",
+    url:"/stock/purchases"
+  },
+  {
+    icon:<AttachMoneyIcon/>,
+    title:"Sales",
+    url:"/stock/sales"
+  },
+  {
+  icon:<DashboradIcon/>,
+  title:"Dashboard",
+  url:"/stock/"
+  },
     {
     icon:<SupervisorAccountIcon/>,
     title:"Admin Panel",

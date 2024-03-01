@@ -60,11 +60,15 @@ const useStockCalls = () => {
       }
 
     }
+    const getBrands = ()=>{
+      
+      return ;
+    }
       
 
     useEffect(() => {
         getFirms();
-        console.log(dataList);          
+        console.log(dataList);           
       }, [ ]);
     // const getFirms=async()=> {
     //     const url= "firms";
@@ -84,6 +88,7 @@ const useStockCalls = () => {
 //CUSTOM HOOK ICINDE NORMAL FONKSIYONLAR YAZILABILIR, HER TURLU HOOK KULLANILABILIR. FAKAT "RETURN" KISMINDA JSX DONDURMEYIZ. ONUN YERINE BURADAKI FONKSIYONLARI DONDURURUZ
 // aslında yazılan fonksıyonu dondurmek ıcın custom hook yazıyoruz.Cunku fonksıyonu tekrar tekrar yazmak ıstemıyoruz.
   return {getFirms,dataList, postFirms,deleteFirms,putFirms}
+  // ,getBrands,getCategories,getProducts}
 }
 
 export default useStockCalls;

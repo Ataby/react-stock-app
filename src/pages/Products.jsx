@@ -40,6 +40,7 @@ const Products = () => {
         <ProductModal  open={open} setOpen={setOpen} info={info} setinfo={setinfo}  />
     {dataList?.map((item,index)=> {
       const {id, sirket_adi,ulke,telefon_numarasi,adres,araba_modelleri}=item;
+      console.log(typeof araba_modelleri);
       return (
         <Card sx={{ padding:"1rem",margin:".8rem", maxWidth:400,minWidth:400 ,boxShadow:"0px 0px 5px" }}>
         <Box sx={{ }} >
@@ -48,9 +49,11 @@ const Products = () => {
             {sirket_adi}
             </Typography>
             <Divider />
-            <ol>
-              {araba_modelleri}
-            </ol>
+            <ul>
+              {item.araba_modelleri?.map((model,i)=> 
+                 (<li>{model} </li>)
+              )}               
+            </ul>
           
           </Box>          
       </Card>

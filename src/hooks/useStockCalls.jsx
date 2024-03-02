@@ -13,6 +13,7 @@ const useStockCalls = () => {
     const URL = `https://659a7537652b843dea539125.mockapi.io/api/v1/task`;
     const dispatch = useDispatch();
     const [dataList, setdataList] = useState(null);
+    const [categories,setCategories]=useState(null);
    
     
     const getFirms=async()=> {
@@ -60,9 +61,14 @@ const useStockCalls = () => {
       }
 
     }
-    const getBrands = ()=>{
+    const getCategories = async()=>{
       
-      return ;
+      try {
+        await axios(`https://65e038c8d3db23f76248a3f2.mockapi.io/categories`)
+        .then((data)=> setCategories(data))
+      } catch (error) {
+        console.log(error)
+      }
     }
       
 
@@ -87,7 +93,7 @@ const useStockCalls = () => {
      
 //CUSTOM HOOK ICINDE NORMAL FONKSIYONLAR YAZILABILIR, HER TURLU HOOK KULLANILABILIR. FAKAT "RETURN" KISMINDA JSX DONDURMEYIZ. ONUN YERINE BURADAKI FONKSIYONLARI DONDURURUZ
 // aslında yazılan fonksıyonu dondurmek ıcın custom hook yazıyoruz.Cunku fonksıyonu tekrar tekrar yazmak ıstemıyoruz.
-  return {getFirms,dataList, postFirms,deleteFirms,putFirms}
+  return {getFirms,dataList, postFirms,deleteFirms,putFirms,categories}
   // ,getBrands,getCategories,getProducts}
 }
 
